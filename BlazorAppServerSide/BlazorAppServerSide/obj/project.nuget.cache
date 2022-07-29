@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qqneqpmQtvWJPpNuEld5cR/8ooXyJT1FIs5IQhQwvr+f4PUNegkT0fA9hfFmjEUwN8kAOXjUJZ6muTsEK6xshg==",
+  "dgSpecHash": "hBv9vfsrE6qXeZ4h9GVAruiBjunDCZLVXR6BQRoQgQ+jqbk9Pz1ENb5ddk2vntT1xXafhAFvZGdMEF6e16qugQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Twin\\source\\repos\\BlazorAppServerSide\\BlazorAppServerSide\\BlazorAppServerSide.csproj",
+  "projectFilePath": "C:\\Users\\Twin\\source\\repos\\Blazor\\BlazorAppServerSide\\BlazorAppServerSide\\BlazorAppServerSide.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

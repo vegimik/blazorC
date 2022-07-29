@@ -1,0 +1,45 @@
+﻿@page "/lcevents"
+
+<h3>LifecycleEventsComponent</h3>
+<hr />
+<br />
+<h3>1. Events Sequences</h3>
+<img src="~/images/eventSequences.png" />
+
+<hr />
+<br />
+<h3>2. Avoding a Data initilaization Pitfall</h3>
+<EmployeeDetailComponent Employee="employee"></EmployeeDetailComponent>
+
+
+
+@code {
+	public List<Employee> Employees { get; set; } = new List<Employee>();
+	public Employee employee { get; set; }
+
+	[Parameter]
+	public int Counter { get; set; }
+
+
+	//protected override void OnInitialized()
+	//{
+	//	base.OnInitialized();
+
+	//	System.Threading.Thread.Sleep(5000);
+
+	//	employee = new Employee { Id = 1, Name = "John Doe", Title = "Developer", Department = "Dev" };
+	//}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Run(() =>
+		{
+			System.Threading.Thread.Sleep(5000);
+
+			employee = new Employee { Id = 1, Name = "John Doe", Title = "Developer", Department = "Dev" };
+
+		});
+
+	}
+
+}

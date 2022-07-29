@@ -57,6 +57,13 @@ EditCustomer(customer);
 <hr />
 <br />
 <p>5. Lifecycle events - Whren is Rendering Triggered</p>
+<Component>
+	<BodyTemplate>
+		<button @onclick="(ClickBody)">Click in BodyTemplate</button>
+	</BodyTemplate>
+</Component>
+<br/>
+<p>Counter Value: @Counter</p>
 
 
 @code {
@@ -64,6 +71,9 @@ EditCustomer(customer);
 	public List<Employee> Employees { get; set; } = new List<Employee>();
 	public List<Customer> Customers { get; set; } = new List<Customer>();
 	private RepeaterComponent<Customer> repeater;
+
+	[Parameter]
+	public int Counter { get; set; }
 
 	protected override void OnInitialized()
 	{
@@ -83,9 +93,23 @@ EditCustomer(customer);
 
 	}
 
+	protected override void OnAfterRender(bool firstRender)
+	{
+		base.OnAfterRender(firstRender);
+		Console.WriteLine($"Counter - OnAfterRender at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+	}
+
+
+
 	private void EditCustomer(Customer customer)
 	{
 		this.repeater.ItemToEdit = customer;
+
+	}
+
+	private void ClickBody()
+	{
+		Console.WriteLine($"ClickBody at {DateTime.Now.ToString("hh:MM:ss.fff")}");
 
 	}
 
@@ -100,12 +124,5 @@ EditCustomer(customer);
 		public string PhoneNumber { get; set; }
 	}
 
-	public class Employee
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Title { get; set; }
-		public string Department { get; set; }
-	}
 
 }

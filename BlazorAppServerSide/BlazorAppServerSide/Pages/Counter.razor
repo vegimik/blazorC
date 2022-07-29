@@ -1,4 +1,5 @@
-﻿@*@page "/counter"*@
+﻿@using System.Timers
+@*@page "/counter"*@
 
 <h1>Counter</h1>
 
@@ -33,10 +34,19 @@ dialog.Show();
 </button>
 <DialogComponent @ref="dialog"></DialogComponent>
 
+<br />
+<Component Counter="currentCount" @ref="component">
+	<BodyTemplate>
+		<button @onclick="(ClickBody)">Click in BodyTemplate</button>
+	</BodyTemplate>
+</Component>
+
+
 @code {
 
 	public ChildComponent Child { get; set; }
 	public DialogComponent dialog { get; set; }
+	public Component component { get; set; }
 
 	[Parameter]
 	public EventCallback<int> SetCurrentCount { get; set; }
@@ -45,13 +55,50 @@ dialog.Show();
 	public Action<int> SetCount { get; set; }
 
 	private int currentCount = 0;
+	public Timer timer { get; set; }
 
 	private void IncrementCount()
 	{
 		currentCount++;
 		//SetCurrentCount.InvokeAsync(currentCount);
 		SetCount.Invoke(currentCount);
+		component.Counter = currentCount;
+		component.Refresh();
+
 	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		this.timer = new Timer(2000);
+		timer.Elapsed += OnTimedEvent;
+		timer.Enabled = true;
+	}
+
+	public void OnTimedEvent(object source, ElapsedEventArgs e)
+	{
+		this.IncrementCount();
+		Console.WriteLine($"Counter value: {this.currentCount}");
+
+
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		base.OnAfterRender(firstRender);
+		Console.WriteLine($"Counter - OnAfterRender at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+	}
+
+	private void ClickBody()
+	{
+
+	}
+
+
+
+
+
 
 
 }
