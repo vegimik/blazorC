@@ -1,0 +1,71 @@
+﻿@page "/team/{id:int}"
+
+<h3>TeamComponent</h3>
+<h2>The Id is: @Id</h2>
+<br />
+
+<ul class="list-group">
+	<li class="list-group-item">Team Name: @team?.Name</li>
+	<li class="list-group-item">Team Region: @team?.Region</li>
+</ul>
+<br />
+
+<ul class="list-group">
+	@foreach (var memberItem in Members)
+	{
+		<li class="list-group-item">Member Name: @memberItem?.Name, Member Age: @memberItem?.Age </li>
+	}
+</ul>
+
+@code {
+
+	[Parameter]
+	public int Id { get; set; }
+
+	private Team team { get; set; }
+
+	private IEnumerable<Member> Members { get; set; }
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		var Teams = new List<Team>();
+		Teams.Add(new Team { Id = 1, Name = "Red", Region = "Region One" });
+		Teams.Add(new Team { Id = 2, Name = "BLue", Region = "Region Two" });
+		Teams.Add(new Team { Id = 3, Name = "Yellow", Region = "Region Three" });
+
+		var allMembers = new List<Member>();
+		allMembers.Add(new Member { Id = 1, Name = "John", Age = 20, TeamId = 1 });
+		allMembers.Add(new Member { Id = 2, Name = "Mike", Age = 25, TeamId = 1 });
+		allMembers.Add(new Member { Id = 3, Name = "Joe", Age = 26, TeamId = 2 });
+		allMembers.Add(new Member { Id = 4, Name = "Ross", Age = 21, TeamId = 2 });
+		allMembers.Add(new Member { Id = 5, Name = "Ruan", Age = 23, TeamId = 3 });
+		allMembers.Add(new Member { Id = 6, Name = "Fox", Age = 22, TeamId = 3 });
+
+		team = Teams.FirstOrDefault(x => x.Id == this.Id);
+		Members = allMembers.Where(x => x.TeamId == this.Id);
+
+	}
+
+
+
+
+
+	class Team
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Region { get; set; }
+
+	}
+
+	class Member
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public int Age { get; set; }
+		public int TeamId { get; set; }
+
+	}
+}

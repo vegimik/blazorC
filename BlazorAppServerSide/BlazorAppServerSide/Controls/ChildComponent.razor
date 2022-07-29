@@ -1,0 +1,20 @@
+﻿@if (display)
+{
+	<h3>ChildComponent</h3>
+}
+else
+{
+	<h3>ChildComponent Else Block</h3>
+}
+
+@code
+{
+	public bool display { get; set; } = false;
+
+	public void ShowChild()
+	{
+		display = true;
+		StateHasChanged();
+	}
+
+}

@@ -1,0 +1,154 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<p> Name: @person.SalsPerson</p>
+<p> Amount: @person.Amount</p>
+<p>
+	Amount input: <input type="number" @bind-value="person.Amount" @bind-value:event="oninput" />
+</p>
+<p>
+	IsActive input: <label>
+		<input type="checkbox" @bind-value="person.isActive" checked="@person.isActive" />
+		&nbsp; Is Active
+	</label>
+	<br />
+	IsActive: @person.isActive
+</p>
+
+<p>
+	<label>
+		<input type="radio"
+			   value="1"
+			   name="group"
+			   checked="@(selectedGroup==1)"
+			   @onclick="@(()=>selectedGroup=1)" />1
+	</label>
+	<label>
+		<input type="radio"
+			   value="2"
+			   name="group"
+			   checked="@(selectedGroup==2)"
+			   @onclick="@(()=>selectedGroup=2)" />2
+	</label>
+	<br />
+	Selectedgroup: @selectedGroup
+</p>
+
+<p>
+	<select @bind="@selectedLocationId">
+		<option value="0"></option>
+		@foreach (var locationItem in person.Locations)
+		{
+			<option value="@locationItem.Id">@locationItem.City</option>
+		}
+	</select>
+	<br />
+	Selected Location: @selectedLocationId
+</p>
+
+<p>
+	Locations:
+	<ol class="list-group list-group-numbered">
+		@foreach (var locationItem in @person.Locations)
+		{
+			<li class="list-group-item">
+				<ul class="list-group">
+					<li class="list-group-item">City: @locationItem.City</li>
+					<li class="list-group-item">ProvState: @locationItem.ProvState</li>
+					<li class="list-group-item">Country: @locationItem.Country</li>
+				</ul>
+			</li>
+		}
+	</ol>
+</p>
+
+<p>
+	<table class="table">
+		@foreach (var locationItem in person.Locations)
+		{
+			<tr>
+				<td>@locationItem.Id</td>
+				<td>
+					<input type="text" 
+						class="form-control"
+						@bind-value="@locationItem.City" 
+						@bind-value:event="oninput"/>
+					</td>
+				<td>
+					<input type="text" 
+						class="form-control"
+						@bind-value="@locationItem.ProvState" 
+						@bind-value:event="oninput"/>
+					</td>
+				<td>
+					<input type="text" 
+						class="form-control"
+						@bind-value="@locationItem.Country" 
+						@bind-value:event="oninput"/>
+					</td>
+			</tr>
+
+		}
+	</table>
+</p>
+
+@code {
+	IndexViewModel person = null;
+	int selectedGroup = 0;
+	int selectedLocationId = 0;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		person = new IndexViewModel
+			{
+				SalsPerson = "Alex",
+				Amount = 150000,
+				isActive = true,
+				Locations = new List<Location>
+			{
+				new Location
+				{
+					Id=1,
+					City="Toronto",
+					ProvState="Ontario",
+					Country="Canada"
+				},
+				new Location
+				{
+					Id=1,
+					City="Montreal",
+					ProvState="Quebec",
+					Country="Canada"
+				}
+			}
+			};
+
+	}
+
+	#region "View Model"
+
+	class IndexViewModel
+	{
+		public string SalsPerson { get; set; }
+		public double Amount { get; set; }
+		public bool isActive { get; set; }
+		public List<Location> Locations { get; set; }
+	}
+
+	class Location
+	{
+		public int Id { get; set; }
+		public string City { get; set; }
+		public string ProvState { get; set; }
+		public string Country { get; set; }
+	}
+
+	#endregion
+}

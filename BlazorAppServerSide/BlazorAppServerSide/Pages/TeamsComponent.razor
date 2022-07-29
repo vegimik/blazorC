@@ -1,0 +1,47 @@
+﻿@page "/teams"
+
+<h3 style="@Color">TeamsComponent</h3>
+
+<table class="table">
+	<tr>
+		<td>Team</td>
+		<td>Region</td>
+	</tr>
+	@foreach (var team in Teams)
+	{
+		<tr>
+			<td><a href=@($"/team/{@team.Id}") class="nav-link">@team.Name</a></td>
+			<td>@team.Region</td>
+		</tr>
+
+
+	}
+</table>
+
+
+@code {
+	[CascadingParameter(Name = "Color")]
+	public string Color { get; set; }
+
+	private List<Team> Teams = new List<Team>();
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Teams.Add(new Team { Id = 1, Name = "Red", Region = "Region One" });
+		Teams.Add(new Team { Id = 2, Name = "BLue", Region = "Region Two" });
+		Teams.Add(new Team { Id = 3, Name = "Yellow", Region = "Region Three" });
+
+	}
+
+
+	class Team
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Region { get; set; }
+
+	}
+
+}

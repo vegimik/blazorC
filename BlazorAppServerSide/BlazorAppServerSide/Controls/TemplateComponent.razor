@@ -1,0 +1,111 @@
+﻿@page "/template"
+<h3>TemplateComponent</h3>
+<br />
+<p> 1. RenderFragment</p>
+<FieldComponent Label="Name">
+	<Control><input class="input" type="email" placeholder="Recipient email" /></Control>
+</FieldComponent>
+<FieldComponent Label="Title">
+	<Control><input class="input" type="email" placeholder="Recipient email" /></Control>
+</FieldComponent>
+<FieldComponent Label="Department">
+	<Control><input class="input" type="email" placeholder="Recipient email" /></Control>
+</FieldComponent>
+
+<hr />
+<br />
+<p>2. Generic Type Items List</p>
+<GridAutoComponent Items="@Employees"
+				   CssClass="is-striped is-hoverable"
+				   ColumnsToExcludeCSV="Id, Department">
+</GridAutoComponent>
+<hr />
+<br />
+<p>3. Repeater Component with Type Items List</p>
+<p>4. Gnereic Typed Render Component as a Form</p>
+<RepeaterComponent @ref="repeater"
+				   Items="Customers">
+	<Header>
+		<h2> Customer</h2>
+	</Header>
+	<Row Context="customer">
+		<div>
+			<b>@customer.CompanyName</b>
+			&nbsp;
+			<button class="btn" @onclick="@(()=>{
+EditCustomer(customer);
+})">
+				Edit
+			</button>
+		</div>
+		<div class="ml-5"> @customer.ContactName</div>
+		<div class="ml-5"> @customer.PhoneNumber</div>
+	</Row>
+	<EditTemplate Context="currentCustomer">
+		<div>
+			<text>Company Name: </text><input type="text" class="form-control" @bind-value="currentCustomer.CompanyName" />
+		</div>
+		<div>
+			<text>Contact Name: </text><input type="text" class="form-control" @bind-value="currentCustomer.ContactName" />
+		</div>
+		<div>
+			<text>Phone Number: </text><input type="text" class="form-control" @bind-value="currentCustomer.PhoneNumber" />
+		</div>
+
+	</EditTemplate>
+</RepeaterComponent>
+<hr />
+<br />
+<p>5. Lifecycle events - Whren is Rendering Triggered</p>
+
+
+@code {
+
+	public List<Employee> Employees { get; set; } = new List<Employee>();
+	public List<Customer> Customers { get; set; } = new List<Customer>();
+	private RepeaterComponent<Customer> repeater;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Customers.AddRange(new Customer[3]{
+			new Customer{ Id = 1, CompanyName= "ABC Comapny",       ContactName= "Frank Liu", PhoneNumber= "111-1234" },
+			new Customer{ Id = 3, CompanyName= "DEF Comapny",       ContactName= "Thomas Train", PhoneNumber= "222-1234" },
+			new Customer{ Id = 3, CompanyName= "GHI Comapny",   ContactName= "John Doe", PhoneNumber= "333-1234" }}
+		);
+
+		Employees.AddRange(new Employee[3]{
+			new Employee { Id = 1, Name = "John Doe", Title = "Developer", Department = "Dev" },
+			new Employee { Id = 3, Name = "Jane Doe", Title = "Developer", Department = "Dev" },
+			new Employee { Id = 3, Name = "Jeff Thomas", Title = "Developer", Department = "Dev" }}
+		);
+
+	}
+
+	private void EditCustomer(Customer customer)
+	{
+		this.repeater.ItemToEdit = customer;
+
+	}
+
+
+
+
+	public class Customer
+	{
+		public int Id { get; set; }
+		public string CompanyName { get; set; }
+		public string ContactName { get; set; }
+		public string PhoneNumber { get; set; }
+	}
+
+	public class Employee
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Title { get; set; }
+		public string Department { get; set; }
+	}
+
+}
