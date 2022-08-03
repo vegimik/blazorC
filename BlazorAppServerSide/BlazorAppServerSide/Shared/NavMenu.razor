@@ -1,67 +1,102 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorAppServerSide</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+﻿@using BlazorAppServerSide.Stores.CounterStore
+@inject CounterStore counterStore
+
+<div class="top-row pl-4 navbar navbar-dark">
+	<a class="navbar-brand" href="">BlazorAppServerSide</a>
+	<button class="navbar-toggler" @onclick="ToggleNavMenu">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="template">
-                <span class="oi oi-plus" aria-hidden="true"></span> Template Component
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="lcevents">
-                <span class="oi oi-plus" aria-hidden="true"></span> Lifecycle Events
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="sales">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Sales
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="order">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Order
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="team">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Team
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="teams">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Teams
-            </NavLink>
-        </li>
-    </ul>
+	<ul class="nav flex-column">
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+				<span class="oi oi-home" aria-hidden="true"></span> Home
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="counter">
+				<span class="oi oi-plus" aria-hidden="true"></span> Counter: @counterStore.GetState().Count
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="template">
+				<span class="oi oi-plus" aria-hidden="true"></span> Template Component
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="lcevents">
+				<span class="oi oi-plus" aria-hidden="true"></span> Lifecycle Events
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="forms">
+				<span class="oi oi-plus" aria-hidden="true"></span> Forms and Validations
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dinject">
+				<span class="oi oi-plus" aria-hidden="true"></span> Dependecy Injection
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="smanage">
+				<span class="oi oi-plus" aria-hidden="true"></span> State Management
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="auth">
+				<span class="oi oi-plus" aria-hidden="true"></span> Authentication
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="dgrid">
+				<span class="oi oi-plus" aria-hidden="true"></span> Data grid Development
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="fetchdata">
+				<span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="sales">
+				<span class="oi oi-list-rich" aria-hidden="true"></span> Sales
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="order">
+				<span class="oi oi-list-rich" aria-hidden="true"></span> Order
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="team">
+				<span class="oi oi-list-rich" aria-hidden="true"></span> Team
+			</NavLink>
+		</li>
+		<li class="nav-item px-3">
+			<NavLink class="nav-link" href="teams">
+				<span class="oi oi-list-rich" aria-hidden="true"></span> Teams
+			</NavLink>
+		</li>
+	</ul>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+	private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		counterStore.AddStateChangeListeners(() => { StateHasChanged(); });
+
+	}
+
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
 }

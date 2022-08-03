@@ -1,0 +1,66 @@
+﻿@page "/forms"
+
+@using BlazorAppServerSide.Models
+
+<h3>FormValidationsComponent</h3>
+<br />
+<h2>Form method 1</h2>
+<form method="post" action="/backend_page">
+	<input type="text" id="fname" value="John" />
+	<br />
+	<input type="text" id="lname" value="Doe" />
+	<br />
+	<input type="text" id="emp_number" value="" />
+	<br />
+	<input type="text" id="email" value="" />
+	<br />
+
+	<input type="submit" value="Submit" />
+</form>
+
+<br />
+<br />
+<h2>Form method 2</h2>
+<EditForm Model="person" OnValidSubmit="ValidFormSubitted">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<br />
+	<label>
+		First Name: <br />
+		<InputText id="fname" @bind-Value="person.FirstName"></InputText>
+	</label>
+	<br />
+	<br />
+	<label>
+		Last Name: <br />
+		<InputText id="lname" @bind-Value="person.LastName"></InputText>
+	</label>
+	<br />
+	<label>
+		Employee Number: <br />
+		<InputNumber id="emp_number" @bind-Value="person.EmployeeNumber"></InputNumber>
+	</label>
+	<br />
+	<label>
+		Email: <br />
+		<InputText id="email" @bind-Value="person.Email"></InputText>
+	</label>
+	<br />
+
+	<input type="submit" value="Submit" />
+	<button type="button" class="btn btn-primary">Submit</button>
+
+</EditForm>
+
+
+@code {
+
+	Person person = new Person();
+
+	private void ValidFormSubitted()
+	{
+
+	}
+
+
+}

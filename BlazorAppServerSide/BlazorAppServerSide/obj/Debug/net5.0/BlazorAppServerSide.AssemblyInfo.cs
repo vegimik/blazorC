@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("d22f590d-b1b0-466a-9723-abba4eaae696")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlazorAppServerSide")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]

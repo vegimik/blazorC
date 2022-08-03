@@ -110,6 +110,20 @@ using BlazorAppServerSide.Models;
 #line hidden
 #nullable disable
 #nullable restore
+#line 15 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Stores;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Configuation;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\Counter.razor"
 using System.Timers;
 
@@ -124,7 +138,7 @@ using System.Timers;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 45 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\Counter.razor"
+#line 48 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\Counter.razor"
        
 
 	public ChildComponent Child { get; set; }
@@ -146,7 +160,7 @@ using System.Timers;
 		//SetCurrentCount.InvokeAsync(currentCount);
 		SetCount.Invoke(currentCount);
 		component.Counter = currentCount;
-		component.Refresh();
+		//component.Refresh();
 
 	}
 

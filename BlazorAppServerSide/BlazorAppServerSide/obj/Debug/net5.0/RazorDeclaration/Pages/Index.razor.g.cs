@@ -109,6 +109,20 @@ using BlazorAppServerSide.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Stores;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Configuation;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -117,6 +131,23 @@ using BlazorAppServerSide.Models;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 34 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\Index.razor"
+       
+	[CascadingParameter]
+	public Task<AuthenticationState> _authState { get; set; }
+
+	public AuthenticationState authState { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		authState = await _authState;
+
+	}
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

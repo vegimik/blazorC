@@ -109,6 +109,27 @@ using BlazorAppServerSide.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Stores;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Configuation;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\LifecycleEventsComponent.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/lcevents")]
     public partial class LifecycleEventsComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -118,7 +139,7 @@ using BlazorAppServerSide.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\LifecycleEventsComponent.razor"
+#line 18 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\LifecycleEventsComponent.razor"
        
 	public List<Employee> Employees { get; set; } = new List<Employee>();
 	public Employee employee { get; set; }

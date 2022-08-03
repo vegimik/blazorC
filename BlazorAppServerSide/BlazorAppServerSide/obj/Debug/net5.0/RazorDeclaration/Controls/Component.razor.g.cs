@@ -109,6 +109,20 @@ using BlazorAppServerSide.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 15 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Stores;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Configuation;
+
+#line default
+#line hidden
+#nullable disable
     public partial class Component : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -140,7 +154,7 @@ using BlazorAppServerSide.Models;
 
 	public void Refresh()
 	{
-		this.StateHasChanged();
+		//this.StateHasChanged();
 	}
 
 

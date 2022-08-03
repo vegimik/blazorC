@@ -1,0 +1,49 @@
+﻿@page "/smanage"
+
+@implements IDisposable
+@using BlazorAppServerSide.Stores.CounterStore
+
+@inject CounterStore counterStore
+@inject IActionDispatcher actionDispatcher
+
+<h3>StateManagementComponent</h3>
+<p>There will try to be managed the state with Flux (thats from facebook)</p>
+
+<h1>Counter</h1>
+<h2>Current counter: @*@currentCounter*@ @counterStore.GetState().Count</h2>
+<button class="btn btn-primary" @onclick="IncrementCounter">Click me</button>
+
+@code {
+	//public int currentCounter { get; set; } = 0;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		counterStore.AddStateChangeListeners(this.UpdateView);
+
+	}
+
+	private void IncrementCounter()
+	{
+		//this.currentCounter++;
+		//counterStore.IncrementCount();
+		actionDispatcher.Dispatch(new IncrementAction());
+	}
+
+	private void DecrementCount()
+	{
+		//counterStore.DecrementCount();
+		actionDispatcher.Dispatch(new DecrementAction());
+	}
+
+	public void UpdateView()
+	{
+		this.StateHasChanged();
+	}
+
+	public void Dispose()
+	{
+		counterStore.RemoveStateChangeListeners(UpdateView);
+	}
+
+}

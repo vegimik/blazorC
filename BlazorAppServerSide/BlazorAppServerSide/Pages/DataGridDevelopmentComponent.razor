@@ -1,0 +1,151 @@
+﻿@page "/dgrid"
+<h3>DataGridDevelopmentComponent</h3>
+<br />
+<h2>Part 1: DatatGrid Development, Columns Configuration</h2>
+<br />
+<h2>Part 2: DattGrid Development, Paging</h2>
+<br />
+<h2>Part 3: DataGrid Development, Sorting</h2>
+<br />
+
+<DataGridComponent Items="listOfEmployees" Columns="listOfColumnDefinition" Paging="@( new PagingConfig
+				{
+					Enabled = true,
+					CustomPager = false,
+					PageSize = 3
+				})">
+
+	<CustomPager>
+		<button class="btn btn-primary" @onclick="GoToPrevPage"></button>
+		<span style="font-size:12px; color:grey">
+			&nbsp;>&nbsp; Page:
+			<input type="number" max="@grid.MaxPageNumber" min="1" @bind-value="@grid.CurrentPageNumber" />
+			of
+			@Paging.MaxPageNumber(listOfEmployees.Count)
+		</span>
+		<button class="btn btn-primary" @onclick="GoToNextPage"></button>
+	</CustomPager>
+</DataGridComponent>
+
+@code {
+
+	private DataGridComponent<Employee> grid { get; set; }
+	private List<Employee> listOfEmployees { get; set; } = new List<Employee>();
+	private List<ColumnDefinition> listOfColumnDefinition { get; set; } = new List<ColumnDefinition>();
+	public PagingConfig Paging { get; set; }
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		Initialize();
+
+	}
+	protected void Initialize()
+	{
+
+
+		if (listOfColumnDefinition.Count <= 0)
+		{
+			listOfColumnDefinition.AddRange(new ColumnDefinition[]
+			{
+				new ColumnDefinition
+				{
+					DataField="Name",
+					Caption="Name",
+					SortDirection=SortDirection.Asc
+				},
+				new ColumnDefinition
+				{
+					DataField="Title",
+					Caption="Title"
+				},
+				new ColumnDefinition
+				{
+					DataField="Department",
+					Caption="Department"
+				},
+				new ColumnDefinition
+				{
+					DataField="EmploymentDate",
+					Caption="Employment Date",
+					Format="yyyy/MM/dd",
+					DataType=DataType.Date
+				},
+				new ColumnDefinition{
+					DataField="Salary",
+					Caption="Annual Salary",
+					DataType=DataType.Currency,
+					Alignment=Alignment.Right,
+					Format="c"
+				}
+			});
+		}
+
+		if (listOfEmployees.Count <= 0)
+		{
+			listOfEmployees.AddRange(
+				new Employee[]
+				{
+					new Employee
+					{
+						Name="Vegim Karacica",
+						Title="Developer",
+						Department="Software Dev",
+						EmploymentDate=DateTime.Now,
+						Salary=100000
+					},
+					new Employee
+					{
+						Name="Vullnet Karacica",
+						Title="Developer",
+						Department="Software Dev",
+						EmploymentDate=DateTime.Now,
+						Salary=100000
+					},
+					new Employee
+					{
+						Name="Gjergj Karacica",
+						Title="Developer",
+						Department="Software Dev",
+						EmploymentDate=DateTime.Now,
+						Salary=100000
+					},
+					new Employee
+					{
+						Name="Leunora Karacica",
+						Title="Developer",
+						Department="Software Dev",
+						EmploymentDate=DateTime.Now,
+						Salary=100000
+					}
+				});
+		}
+
+		if (Paging == null)
+		{
+			Paging = new PagingConfig
+				{
+					Enabled = true,
+					CustomPager = false,
+					PageSize = 3
+				};
+
+		}
+
+
+
+
+
+
+
+	}
+
+	public void GoToPrevPage()
+	{
+		grid.GoToPrevPage();
+	}
+	public void GoToNextPage()
+	{
+		grid.GoToNextPage();
+	}
+}

@@ -110,7 +110,21 @@ using BlazorAppServerSide.Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\FetchData.razor"
+#line 15 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Stores;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\_Imports.razor"
+using BlazorAppServerSide.Configuation;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\FetchData.razor"
 using BlazorAppServerSide.Data;
 
 #line default
@@ -125,14 +139,14 @@ using BlazorAppServerSide.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 39 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\FetchData.razor"
+#line 50 "C:\Users\Twin\source\repos\Blazor\BlazorAppServerSide\BlazorAppServerSide\Pages\FetchData.razor"
        
-    private WeatherForecast[] forecasts;
+	private WeatherForecast[] forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+	}
 
 #line default
 #line hidden

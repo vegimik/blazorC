@@ -1,4 +1,6 @@
-﻿namespace BlazorAppServerSide.Models
+﻿using System;
+
+namespace BlazorAppServerSide.Models
 {
     public class Employee
     {
@@ -6,6 +8,8 @@
         public string Name { get; set; }
         public string Title { get; set; }
         public string Department { get; set; }
+        public DateTime EmploymentDate { get; set; }
+        public int Salary { get; set; }
 
         public void LoadRecords()
         {

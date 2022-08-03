@@ -1,0 +1,34 @@
+﻿@page "/dinject"
+@using BlazorAppServerSide.Services
+@inject BlazorAppServerSide.Services.ICustomerService CustService
+@implements IDisposable
+
+<h3>DepedencyInjectionComponent</h3>
+<br />
+Customer Service id: @CustService?.uid
+<br />
+<p>Customer Name: @customer.Name</p>
+
+
+@code {
+	//CustomerService customerService = new CustomerService();
+
+	private Customer customer { get; set; }
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		if (customer == null)
+		{
+			customer = CustService.GetCustomerById(1);
+
+		}
+	}
+
+	public void Dispose()
+	{
+
+	}
+
+}

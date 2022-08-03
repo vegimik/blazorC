@@ -6,4 +6,42 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
+<br />
+<br />
+@if (authState != null)
+{
+	<p>
+		Name: @authState.User.Identity.Name
+	</p>
+	@foreach (var claimItem in authState.User.Claims)
+	{
+		<p>
+			@claimItem.Type
+		</p>
+		<p>
+			@claimItem.Value
+		</p>
+		<p>
+			@claimItem.Issuer
+		</p>
+		<p>
+			@claimItem.OriginalIssuer
+		</p>
+
+	}
+}
+
+@code {
+	[CascadingParameter]
+	public Task<AuthenticationState> _authState { get; set; }
+
+	public AuthenticationState authState { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		authState = await _authState;
+
+	}
+}
+
 
